@@ -7,4 +7,6 @@ class Interest(models.Model):
     percentage = models.FloatField()
     loan_amt_min = models.FloatField()
     loan_amt_max = models.FloatField()
+    status = models.BinaryField()
+    created_date = models.DateField( auto_now=True)
     

@@ -8,6 +8,7 @@ urlpatterns = [
     path('Register/', views.register),
     path('login/', views.login_view),
     path('logout/', views.logout_view),
+    path('api/users', views.UserView.as_view(), name="something"),
 ]
 
 if settings.DEBUG:

@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
-from .models import User
 from django.http import HttpResponseRedirect
 from .forms import RegisterForm
+
+from rest_framework.views import APIView 
+from rest_framework.response import Response 
+from . models import User
+from . serializer import UserSerializer
 
 # Create your views here.
 
@@ -91,3 +95,19 @@ def update_profile(request, user_id):
     user = User.objects.get(pk=user_id)
     #user.profile.bio = 'Test'
     user.save()
+
+class UserView(APIView): 
+    
+    serializer_class = UserSerializer 
+  
+    def get(self, request): 
+        users = [ {"name": users.username,"detail": users.email}  
+        for users in User.objects.all()] 
+        return Response(users) 
+  
+    def post(self, request): 
+  
+        serializer = UserSerializer(data=request.data) 
+        if serializer.is_valid(raise_exception=True): 
+            serializer.save() 
+            return  Response(serializer.data) 
