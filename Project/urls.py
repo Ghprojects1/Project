@@ -20,5 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authentication.urls')),
     path('', include('loan.urls')),
+    path('', include('releaseLoan.urls')),
+    path('', include('interest.urls')),
 
 ]

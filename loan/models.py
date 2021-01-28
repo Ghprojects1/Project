@@ -12,11 +12,11 @@ class loan(models.Model):
     totalDue = models.FloatField()
     qty = models.IntegerField()
     itemList = models.CharField(max_length=200)
-    status = models.BooleanField()
-    loan_date = models.DateField()
-    misc_charges = models.FloatField()
-    gross_wt = models.FloatField()
-    net_wt = models.FloatField()
-    purity = models.IntegerField()
+    status = models.BooleanField(default=True,blank=True,null=True)
+    loan_date = models.DateField(blank=True,null=True)
+    misc_charges = models.FloatField(blank=True,null=True)
+    gross_wt = models.FloatField(blank=True,null=True)
+    net_wt = models.FloatField(blank=True,null=True)
+    #purity = models.FloatField(blank=True,null=True)
 
 

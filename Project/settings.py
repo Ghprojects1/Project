@@ -26,9 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
+#STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
 
 # Application definition
 
@@ -109,18 +109,18 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'Project',
+        'NAME': os.getenv('MYAPP_DB_NAME'),
         'CLIENT': {
-            'host': 'mongodb+srv://infodba:admin@cluster0.ddyky.mongodb.net/ProjectDB?retryWrites=true&w=majority'
-        }, 
+            'host': os.getenv('MYAPP_DB_HOST')
+        }
     }
 }
 
 # Base url to serve media files
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
 
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 # Password validation
