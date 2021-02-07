@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
+    'graphene_django',
     'rest_framework',
     'corsheaders',
    # 'crispy_forms',
@@ -109,9 +110,9 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': os.getenv('MYAPP_DB_NAME'),
+        'NAME': 'Project',
         'CLIENT': {
-            'host': os.getenv('MYAPP_DB_HOST')
+            'host': 'mongodb+srv://infodba:admin@cluster0.ddyky.mongodb.net/ProjectDB?retryWrites=true&w=majority'
         }
     }
 }
@@ -160,3 +161,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GRAPHENE = {
+    "SCHEMA": "releaseLoan.schema.schema"
+}
