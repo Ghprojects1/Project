@@ -12,11 +12,11 @@ class ReleaseLoanType(DjangoObjectType):
 class LoanType(DjangoObjectType):
     class Meta:
         model = loan
-        fields = ("id", "loan_amt")
+        fields = "__all__"
         
 class Query(graphene.ObjectType):
     releaseloansQuery = graphene.List(ReleaseLoanType)
-    loanQuery = graphene.Field(LoanType)#, name=graphene.String(required=True))
+    loanQuery = graphene.List(LoanType)#, name=graphene.String(required=True))
 
     def resolve_releaseloansQuery(self, info):
         # We can easily optimize query count in the resolve method
