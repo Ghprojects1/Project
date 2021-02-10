@@ -1,5 +1,5 @@
 from django.db import models
-from loan.models import loan
+from loan.models import Loan
 
 # Create your models here.
 class Interest(models.Model):

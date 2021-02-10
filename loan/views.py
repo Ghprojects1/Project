@@ -1,7 +1,7 @@
 from rest_framework.views import APIView 
 from rest_framework.response import Response 
 from . serializer import LoanSerializer
-from .models import loan
+from .models import Loan
 
 # Create your views here.
 class LoanView(APIView): 
@@ -10,7 +10,7 @@ class LoanView(APIView):
   
     def get(self, request): 
         loans = [ {"Loan No": loans.loan_no,"Loan Amt": loans.loan_amt }  
-        for loans in loan.objects.all()] 
+        for loans in Loan.objects.all()] 
         return Response(loans) 
   
     def post(self, request): 

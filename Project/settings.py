@@ -163,5 +163,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 GRAPHENE = {
-    "SCHEMA": "releaseLoan.schema.schema"
+    "SCHEMA": "Project.schema.schema"
 }

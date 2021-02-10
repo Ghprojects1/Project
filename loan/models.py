@@ -4,7 +4,7 @@ from django.conf import settings
 #from interest.models import Interest
 
 # Create your models here.
-class loan(models.Model):
+class Loan(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT)
     loan_no = models.CharField(max_length=6 ,primary_key = True)
     loan_amt = models.FloatField()
