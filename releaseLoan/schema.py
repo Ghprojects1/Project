@@ -3,6 +3,7 @@ import graphene
 from .models import ReleaseLoan
 from loan.models import Loan
 from loan.schema import LoanType
+from authentication.models import User
 
 class ReleaseLoanType(DjangoObjectType):
     class Meta:
@@ -10,10 +11,15 @@ class ReleaseLoanType(DjangoObjectType):
         fields = "__all__"
         
 class Query(graphene.ObjectType):
-    releaseloans = graphene.List(ReleaseLoanType)
-
-    def resolve_releaseloans(self, info):
+    allreleaseloans = graphene.List(ReleaseLoanType)
+    search_releaseloan = graphene.List(ReleaseLoanType, loan_no=graphene.String(required=True))
+    
+    def resolve_allreleaseloans(self, info):
         return ReleaseLoan.objects.all()
+
+    def resolve_search_releaseloan(self, info, loan_no):
+        loan=Loan.objects.get(loan_no=loan_no)
+        return ReleaseLoan.objects.filter(loan_no=loan)
    
 class UpdateReleaseLoan(graphene.Mutation):
     releaseLoans = graphene.Field(ReleaseLoanType)

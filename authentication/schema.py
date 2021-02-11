@@ -1,22 +1,30 @@
 import graphene
 from graphene_django import DjangoObjectType
 from .models import User
+from loan.models import Loan
 
 class UserType(DjangoObjectType):
     class Meta:
         model = User
 
 class Query(graphene.ObjectType):
-    users = graphene.List(UserType)
-    user = graphene.Field(UserType, username=graphene.String(required=True))
+    all_users = graphene.List(UserType)
+    search_user = graphene.Field(UserType, username=graphene.String(required=True))
 
-    def resolve_users(self, info):
-        # We can easily optimize query count in the resolve method
+    me = graphene.Field(UserType)
+
+    def resolve_all_users(self, info):
         return User.objects.all()
 
-    def resolve_user(self, info, username):
-        # We can easily optimize query count in the resolve method
+    def resolve_search_user(self, info, username):
         return User.objects.get(username=username)
+    
+    def resolve_me(self,info):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception('Not logged in')
+
+        return user
 
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
