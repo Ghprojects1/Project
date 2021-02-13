@@ -1,12 +1,21 @@
-from django.shortcuts import render
-from .forms import LoanForm
+from rest_framework.views import APIView 
+from rest_framework.response import Response 
+from . serializer import LoanSerializer
+from .models import Loan
 
 # Create your views here.
-def loan(request):
-    if request.method == "POST":
-        form = LoanForm()
-        return render(request, 'loan/newLoanSuccess.html', {'form': form})
-    else:
-        #return render(request, 'authentication/register.html')
-        form = LoanForm()
-        return render(request, 'loan/newLoan.html', {'form': form})
+class LoanView(APIView): 
+    
+    serializer_class = LoanSerializer 
+  
+    def get(self, request): 
+        loans = [ {"Loan No": loans.loan_no,"Loan Amt": loans.loan_amt }  
+        for loans in Loan.objects.all()] 
+        return Response(loans) 
+  
+    def post(self, request): 
+  
+        serializer = LoanSerializer(data=request.data) 
+        if serializer.is_valid(raise_exception=True): 
+            serializer.save() 
+            return  Response(serializer.data) 

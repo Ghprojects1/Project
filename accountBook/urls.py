@@ -5,6 +5,6 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('api/users', views.UserView.as_view(), name="users"),
+    path('api/users', views.AccountBookView.as_view(), name="Accounts"),
 ]
 

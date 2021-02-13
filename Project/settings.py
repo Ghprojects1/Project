@@ -33,27 +33,42 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
 # Application definition
 
 INSTALLED_APPS = [
-    'authentication',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'loan',
+    
+    'graphene_django',
+    'rest_framework',
+    'corsheaders',
+   # 'crispy_forms',
+    'authentication',
+    'account',
+    'accountBook',
     'interest',
+    'loan',
+    'releaseLoan',
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 AUTH_USER_MODEL = 'authentication.User'
+
 MIDDLEWARE = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',   
 ]
 
 ROOT_URLCONF = 'Project.urls'
@@ -76,6 +91,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Project.wsgi.application'
 
+REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES':['rest_framework.permissions.AllowAny']}
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 if os.getenv('GAE_APPLICATION'):
     DEBUG = False
@@ -94,10 +112,10 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': os.getenv('MYAPP_DB_NAME'),
+        'NAME': 'Project',
         'CLIENT': {
-            'host': os.getenv('MYAPP_DB_HOST')
-        }, 
+            'host': 'mongodb+srv://infodba:admin@cluster0.ddyky.mongodb.net/ProjectDB?retryWrites=true&w=majority'
+        }
     }
 }
 
@@ -145,3 +163,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GRAPHENE = {
+    "SCHEMA": "Project.schema.schema",
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
