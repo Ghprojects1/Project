@@ -1,10 +1,11 @@
 //import { gql, useQuery } from "@apollo/client";
+//import {ApolloProvider} from 'react-apollo'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import Head from 'next/head'
 
 export async function getStaticProps() {
     const client = new ApolloClient({
-        uri: "http://localhost:8000/releaseloans/graphql",
+        uri: "http://127.0.0.1:8000/graphql/",
         cache: new InMemoryCache()
       });
     
@@ -18,16 +19,22 @@ export async function getStaticProps() {
     
     const { data } = await client.query({
         query: gql`
-          query GetLaunches {
-            releaseloansQuery {
-                amtCollected
+        query test{
+          allreleaseloans{
+            loanNo{
+              loanNo
+              loanAmt
             }
+            sNo
+            interest            
+            amtCollected
+          }
         }`
     });
     
       return {
         props: {
-          launches: data.releaseloansQuery
+          launches: data.allreleaseloans
         }
       }
     }
@@ -37,9 +44,14 @@ export async function getStaticProps() {
         return (
             <div >
               <Head>
-                <title>Create Next App</title>
+                <title>Release Loans</title>
                 <link rel="icon" href="/favicon.ico" />
               </Head>
-              </div>
+            {launches.map(launch => 
+            <div>
+              {launch.sNo}  {launch.interest}   {launch.amtCollected} {launch.loanNo.loanNo}  {launch.loanNo.loanAmt}
+            </div>)}
+            
+            </div>
         )
     }
