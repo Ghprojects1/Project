@@ -2,29 +2,19 @@
 //import {ApolloProvider} from 'react-apollo'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import Head from 'next/head'
+import TableDisplay from '../components/table'
 
 export async function getStaticProps() {
     const client = new ApolloClient({
         uri: "http://127.0.0.1:8000/graphql/",
-        cache: new InMemoryCache()
+        cache: new InMemoryCache({addTypename: false})
       });
-    
-    /*export const ALL_PLAYERS_QUERY = gql`
-    query{
-      releaseloansQuery{
-        amtCollected
-      }
-    }
-    `;*/
     
     const { data } = await client.query({
         query: gql`
         query test{
           allreleaseloans{
-            loanNo{
-              loanNo
-              loanAmt
-            }
+            
             sNo
             interest            
             amtCollected
@@ -40,18 +30,16 @@ export async function getStaticProps() {
     }
 
     export default function Home({ launches }) {
-        console.log('launches', launches);
+   //   const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
+   //   launches = JSON.parse(JSON.stringify(launches), omitTypename)
         return (
             <div >
               <Head>
                 <title>Release Loans</title>
                 <link rel="icon" href="/favicon.ico" />
               </Head>
-            {launches.map(launch => 
-            <div>
-              {launch.sNo}  {launch.interest}   {launch.amtCollected} {launch.loanNo.loanNo}  {launch.loanNo.loanAmt}
-            </div>)}
-            
+              
+              <TableDisplay data={launches}/>
             </div>
         )
     }
