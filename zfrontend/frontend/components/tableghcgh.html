@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://fb.me/react-15.0.0.js"></script>
+  <script src="https://fb.me/react-dom-15.0.0.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>React JS Example</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-git.js"></script>
+  <div id="container"></div>
+<script id="jsbin-javascript">
+var Heading = React.createClass({displayName: 'Heading',
+  render: function() {
+    return (React.createElement("th", null, this.props.heading));
+  }
+})
+
+var Headings = React.createClass({displayName: 'Headings',
+  render: function(){
+      var headings = this.props.headings.map(function(heading) {
+        return(React.createElement(Heading, {heading: heading}));
+      });
+    return (React.createElement("thead", null, React.createElement("tr", null, headings)));
+  }
+})
+
+var Row = React.createClass({displayName: 'Row',
+  render: function(){
+    return (React.createElement("tr", null, 
+         React.createElement("td", null, " ",  this.props.data.when, " "), 
+         React.createElement("td", null, " ",  this.props.data.who, " "), 
+         React.createElement("td", null, " ",  this.props.data.description, " ")
+    ));
+  }
+})
+
+var Rows = React.createClass({displayName: 'Rows',
+  render: function() {
+    var rows = this.props.data.map(function(rowData) {
+      return (React.createElement(Row, {data: rowData}));
+    });
+    return (React.createElement("tbody", null, rows));
+  }
+})
+
+var App = React.createClass({displayName: 'App',
+  render: function(){    
+    return React.createElement("div", {style: {textAlign: 'center'}}, 
+    React.createElement("h1", null, 
+      this.props.title
+    ), 
+    React.createElement("table", null, 
+        React.createElement(Headings, {headings: this.props.headings}), 
+        React.createElement(Rows, {data: this.props.data})
+    )
+    )
+   }
+});
+
+var data = 
+[{ "when": "2 minutes ago",
+    "who": "Jill Dupre",
+    "description": "Created new account"
+  },
+  {
+    "when": "1 hour ago",
+    "who": "Lose White",
+    "description": "Added first chapter"
+  },
+  {
+    "when": "2 hours ago",
+    "who": "Jordan Whash",
+    "description": "Created new account"
+}];
+
+var title = "Changes Table"
+var headings = ['When', 'Who', 'Description'];
+// React components start with an uppercase letter.
+ReactDOM.render(React.createElement(App, {headings: headings, 
+        data: data, title: title}), document.getElementById('container'));
+</script>
+
+
+
+<script id="jsbin-source-javascript" type="text/javascript">var Heading = React.createClass({
+  render: function() {
+    return (<th>{this.props.heading}</th>);
+  }
+})
+
+var Headings = React.createClass({
+  render: function(){
+      var headings = this.props.headings.map(function(heading) {
+        return(<Heading heading = {heading}/>);
+      });
+    return (<thead><tr>{headings}</tr></thead>);
+  }
+})
+
+var Row = React.createClass({
+  render: function(){
+    return (<tr>
+         <td> { this.props.data.when } </td>
+         <td> { this.props.data.who } </td>
+         <td> { this.props.data.description } </td>
+    </tr>);
+  }
+})
+
+var Rows = React.createClass({
+  render: function() {
+    var rows = this.props.data.map(function(rowData) {
+      return (<Row data = {rowData} />);
+    });
+    return (<tbody>{rows}</tbody>);
+  }
+})
+
+var App = React.createClass({
+  render: function(){    
+    return <div style={{textAlign: 'center'}}>
+    <h1>
+      {this.props.title}
+    </h1>
+    <table>
+        <Headings headings = {this.props.headings} />
+        <Rows data = {this.props.data} />
+    </table>
+    </div>
+   }
+});
+
+var data = 
+[{ "when": "2 minutes ago",
+    "who": "Jill Dupre",
+    "description": "Created new account"
+  },
+  {
+    "when": "1 hour ago",
+    "who": "Lose White",
+    "description": "Added first chapter"
+  },
+  {
+    "when": "2 hours ago",
+    "who": "Jordan Whash",
+    "description": "Created new account"
+}];
+
+var title = "Changes Table"
+var headings = ['When', 'Who', 'Description'];
+// React components start with an uppercase letter.
+ReactDOM.render(<App headings = {headings} 
+        data = {data} title = {title} />, document.getElementById('container'));</script></body>
+</html>
