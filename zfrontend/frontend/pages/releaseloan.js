@@ -2,11 +2,11 @@
 //import {ApolloProvider} from 'react-apollo'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import Head from 'next/head'
-import TableDisplay from '../components/table'
+import TableDisplay from '../components/shared/table'
 
 export async function getStaticProps() {
     const client = new ApolloClient({
-        uri: "http://127.0.0.1:8000/graphql/",
+        uri: "https://pawntestapp.azurewebsites.net/graphql/",
         cache: new InMemoryCache({addTypename: false})
       });
     
