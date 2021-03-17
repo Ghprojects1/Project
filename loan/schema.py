@@ -38,7 +38,7 @@ class CreateLoan (graphene.Mutation):
         misc_charges = graphene.Float()
         gross_wt = graphene.Float()
         net_wt = graphene.Float()
-        username = graphene.String()
+        username = graphene.String(required = True)
         loan_date= graphene.Date()
 
     def mutate(self, info, **kwargs):
@@ -56,7 +56,7 @@ class CreateLoan (graphene.Mutation):
                 gross_wt=kwargs.get('gross_wt'), 
                 net_wt=kwargs.get('net_wt'),
                 user=User.objects.get(username=kwargs.get('username')),
-                loan_date=kwargs.get('loan_date')
+                #loan_date=kwargs.get('loan_date')
             ) 
             loans.save()          
 
@@ -73,7 +73,7 @@ class CreateLoan (graphene.Mutation):
             loans.gross_wt=kwargs.get('gross_wt',loans.gross_wt)
             loans.net_wt=kwargs.get('net_wt',loans.net_wt)
             loans.user=User.objects.get(username=kwargs.get('username',loans.user.username))
-            loans.loan_date=kwargs.get('loan_date',loans.loan_date)
+            #loans.loan_date=kwargs.get('loan_date',loans.loan_date)
             loans.save()
 
         elif kwargs.get('mode') == 'D':

@@ -13,7 +13,7 @@ class Loan(models.Model):
     qty = models.IntegerField()
     itemList = models.CharField(max_length=200)
     status = models.BooleanField(default=True,blank=True,null=True)
-    loan_date = models.DateField(blank=True,null=True)
+    loan_date = models.DateField(auto_now_add=True,blank=True,null=True)
     misc_charges = models.FloatField(blank=True,null=True)
     gross_wt = models.FloatField(blank=True,null=True)
     net_wt = models.FloatField(blank=True,null=True)

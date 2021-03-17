@@ -35,15 +35,15 @@ class CreateUser(graphene.Mutation):
         email = graphene.String(required=True)
 
     def mutate(self, info, username, password, email):
-        user = User.objects.get(username=username)
-        if user is None:
+        try:
+            user = User.objects.get(username=username)
+        except:
             user = User(username=username, email=email)
-        else:
+        finally:
             user.email = email
-
-        user.set_password(password)
-        user.save()
-        return CreateUser(user=user)
+            user.set_password(password)
+            user.save()
+            return CreateUser(user=user)
 
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
