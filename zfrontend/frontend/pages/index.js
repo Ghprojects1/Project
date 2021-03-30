@@ -1,9 +1,9 @@
-import React from 'react'
-import Auth from '../components/Auth'
+import PawnShop from '../components/PawnShop'
+import React, {useState} from 'react'
 
 
 export default function Home() {
-  return (
-    <Auth />
+  return (    
+    <PawnShop/>
   )
 }
