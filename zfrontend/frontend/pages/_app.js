@@ -2,7 +2,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
 import orange from "@material-ui/core/colors/orange";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import React from 'react'
+import React, { useState } from 'react'
 import {ApolloProvider} from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import {Query} from 'react-apollo'
@@ -11,6 +11,9 @@ import Auth from '../components/Auth'
 import Header from '../components/shared/header'
 import Loading from '../components/shared/loading'
 import Error from '../components/shared/error'
+import Head from 'next/head';
+
+export const UserContext = React.createContext()
 
 const IS_Logged_In_Query = gql`
 query{
@@ -45,7 +48,7 @@ const client = new ApolloClient({
       isLoggedIn: (typeof localStorage !== 'undefined')?!!localStorage.getItem('authToken'):false        
       }
      //!!global.window.localStorage.getItem('authToken')
-    }
+    },
   });
 
 
@@ -71,36 +74,48 @@ const theme = createMuiTheme({
 
 
 function MyApp({ Component, pageProps }) {
+  const [currentUser, setCurrentUser]=useState("");
   
+  React.useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
   
       
   return (
-    
+    <React.Fragment>
+      <Head>
+        <title>PawnShop</title>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+      </Head>
       <MuiThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           {/* https://material-ui.com/getting-started/usage/#cssbaseline */}
           <CssBaseline /> 
 
           <ApolloProvider client={client}>  
-
-          <Query query = {ME_QUERY}>
+          <UserContext.Provider value={currentUser}>
+          <Query query = {ME_QUERY} fetchPolicy='cache-and-network'>
             {({data, loading, error}) =>{
                 if (loading) return <Loading />;
-                if (error) return <Error error={error} />;
-                
+                if (error) return <></>;
+                setCurrentUser(data.me);
                 return (
-                  <Header currentUser={data.me}/>
+                  <></>
                 )
             }}          
           </Query>
-
+          <Header currentUser={currentUser} />
           <Query query={IS_Logged_In_Query}>
             {({data})=> data.isLoggedIn?  <Component {...pageProps} />:<Auth /> }
           </Query>   
-
+          </UserContext.Provider>
           </ApolloProvider>   
       </MuiThemeProvider>
-  
+    </React.Fragment>
   
   )
 }

@@ -2,8 +2,10 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Face, Radio } from "@material-ui/icons";
 import Signout from '../Auth/Signout'
+import {Button} from "@material-ui/core"
 // import AppBar from "@material-ui/core/AppBar";
 // import Toolbar from "@material-ui/core/Toolbar";
 // import RadioIcon from "@material-ui/icons/RadioTwoTone";
@@ -11,6 +13,8 @@ import Signout from '../Auth/Signout'
 // import Typography from "@material-ui/core/Typography";
 
 const Header = ({ classes, currentUser }) => {
+  const router = useRouter()
+
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar>
@@ -28,14 +32,25 @@ const Header = ({ classes, currentUser }) => {
 
           {/* Auth User info */}
           {currentUser && 
-            <Link href="/Profile" className={classes.grow}>
-              <a>
-              <Face className={classes.faceIcon} />
+            // <Link href="/Profile/" className={classes.grow}>
+            //   <a>
+            <Button 
+              onClick={() => {
+                router.push({
+                  pathname: '/Profile/[username]',
+                  query: { username: currentUser.username },
+                })
+              }}
+            >
+              <Face 
+                className={classes.faceIcon}  
+                />
               <Typography variant="h3" className={classes.username} noWrap>
                 {currentUser.username}
               </Typography>
-              </a>
-            </Link>
+              </Button>
+            //   </a>
+            // </Link>
           }
 
           {/* Signout */}

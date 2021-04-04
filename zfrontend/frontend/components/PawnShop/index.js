@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ReleaseLoan from './releaseloan'
 import SearchLoans from './searchLoans'
@@ -9,13 +9,13 @@ import {gql} from 'apollo-boost'
 import Loading from  '../shared/loading'
 import Error from  '../shared/error'
 
-const GET_LoanList= gql`
+export const GET_LoanList= gql`
 query getLoans{
   allLoans{
     loanNo
     loanAmt
     totalDue
-    qty
+    
     itemList
     status
     loanDate
@@ -35,15 +35,18 @@ query getLoans{
 
 
 const PawnShop = ({ classes }) => {
+  const [searchResults, setSearchResults]=useState([]);
+
   return (
     <div className={classes.container}>
-      <SearchLoans />
+      <SearchLoans setSearchResults={setSearchResults} />
       <CreateLoan />
       <Query query = {GET_LoanList}>
       {({data, loading, error}) =>{
         if (loading) return <Loading />;
         if (error) return <Error error={error}/>;
-        return <LoanList loans={data.allLoans}/>
+        const loans = searchResults.length>0? searchResults: data.allLoans;
+        return <LoanList loans={loans}/>
       }
       }
     </Query>
@@ -56,7 +59,7 @@ const styles = theme => ({
   container: {
     margin: "0 auto",
     maxWidth: 960,
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing(2)
   }
 });
 

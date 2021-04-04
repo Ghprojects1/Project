@@ -1,6 +1,6 @@
-import { Container, Table } from 'reactstrap';
+//import { Container, Table } from 'reactstrap';
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class TableDisplay extends React.Component {
 
