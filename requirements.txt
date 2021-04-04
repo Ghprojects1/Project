@@ -36,7 +36,7 @@ progress==1.5
 promise==2.3
 pycodestyle==2.6.0
 Pygments==2.7.4
-PyJWT==2.0.1
+PyJWT==1.7.0
 pylint==2.6.0
 pylint-django==2.4.2
 pylint-plugin-utils==0.6

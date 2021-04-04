@@ -1,11 +1,10 @@
-/private_gae_env.yaml
+
 __pycache__/
 .vscode
-.gcloudignore
 assets
 static
 venv
-deploy.sh
+
 media
 .gitignore
 
