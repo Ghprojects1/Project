@@ -9,7 +9,7 @@ import ThumbUp from "@material-ui/icons/ThumbUpTwoTone";
 import Audiotrack from "@material-ui/icons/AudiotrackTwoTone";
 import Divider from "@material-ui/core/Divider";
 import {Query} from 'react-apollo'
-import {gql} from 'apollo-boost'
+import gql from 'graphql-tag'
 import Loading from '../components/shared/loading'
 import Error from '../components/shared/error'
 import format from 'date-fns/format'

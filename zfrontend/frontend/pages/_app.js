@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import {ApolloProvider} from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import {Query} from 'react-apollo'
-import {gql} from 'apollo-boost'
+import gql from 'graphql-tag'
 import Auth from '../components/Auth'
 import Header from '../components/shared/header'
 import Loading from '../components/shared/loading'
@@ -30,8 +30,8 @@ const ME_QUERY= gql`
 }`;
 
 const client = new ApolloClient({
- // uri: 'http://127.0.0.1:8000/graphql/',
-  uri: 'https://project-pawn.el.r.appspot.com/graphql/',
+  uri: 'http://127.0.0.1:8000/graphql/',
+  // uri: 'https://project-pawn.el.r.appspot.com/graphql/',
   fetchOptions:{
     credentials:"include"
   },

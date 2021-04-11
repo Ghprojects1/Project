@@ -3,7 +3,7 @@ import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText
 import FormControl from "@material-ui/core/FormControl";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Mutation} from 'react-apollo'
-import {gql} from 'apollo-boost'
+import gql from 'graphql-tag'
 import { Lock, VerifiedUserTwoTone } from '@material-ui/icons';
 import Error from "../shared/error"
 

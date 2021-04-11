@@ -46,7 +46,7 @@ export async function getStaticProps() {
 
     import React from 'react'
     import {Query} from 'react-apollo'
-    import {gql} from 'apollo-boost'
+    import gql from 'graphql-tag'
     import TableDisplay from '../components/shared/table'
     
     const GET_Release_Loans= gql`

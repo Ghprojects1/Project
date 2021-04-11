@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Trash from "@material-ui/icons/DeleteForeverOutlined";
-import {UserContext} from '../../pages/_app'
+import {UserContext} from '../../../pages/_app'
 import {Mutation} from 'react-apollo'
-import {gql} from 'apollo-boost'
-import {GET_LoanList} from './index'
+import gql from 'graphql-tag'
+import {GET_LoanList} from '../index'
 
 const DeleteLoan = ({loan}) => {
   const currentUser= useContext(UserContext);

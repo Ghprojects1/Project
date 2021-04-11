@@ -11,13 +11,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 
-import TableDisplay from '../shared/table'
+// import TableDisplay from '../shared/table'
 import { Accordion , AccordionActions, AccordionDetails, AccordionSummary, List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import PDFViewer from '../shared/PDFViewer'
+import PDFViewer from '../../shared/PDFViewer'
 import UpdateLoan from './UpdateLoan'
 import DeleteLoan from './DeleteLoan'
 import Link from 'next/link'
+import CreateReleaseLoan from '../createReleaseLoan'
 
 const LoanList = ({ classes, loans }) => {
   return(
@@ -53,6 +54,7 @@ const LoanList = ({ classes, loans }) => {
           <AccordionActions>
             <UpdateLoan loan={loan}/>
             <DeleteLoan loan={loan}/>
+            <CreateReleaseLoan loan={loan}/>
           </AccordionActions>
         </Accordion >
       ))}

@@ -3,11 +3,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, IconButton, TextField } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import {Mutation} from 'react-apollo'
-import {gql} from 'apollo-boost'
-import Error from '../shared/error'
-import Loading from '../shared/loading'
-import {GET_LoanList} from './index'
-import {UserContext} from '../../pages/_app'
+import gql from 'graphql-tag'
+import Error from '../../shared/error'
+import Loading from '../../shared/loading'
+import {GET_LoanList} from '../index'
+import {UserContext} from '../../../pages/_app'
 
 const UpdateLoan = ({ classes, loan }) => {
   const currentUser= useContext(UserContext);
@@ -44,7 +44,7 @@ const UpdateLoan = ({ classes, loan }) => {
           console.log({data});
           setOpen(false)
         }}
-        refetchQueries={()=>[{query: GET_LoanList}]}
+        //refetchQueries={()=>[{query: GET_LoanList}]}
       >
         {(updateLoan, {loading, error})=>{
           if (error) return <Error error={error}/>
@@ -178,6 +178,7 @@ const UPDATE_LOAN_MUTATION=gql`
 mutation($grossWt: Float, $itemList: String, $loanAmt: Float, $loanNo: String!, $miscCharges: Float, $netWt: Float, $totalDue: Float, $username: String!){
   createLoans(grossWt: $grossWt, itemList: $itemList, loanAmt: $loanAmt, loanNo: $loanNo, miscCharges: $miscCharges, mode:"U" , netWt: $netWt, status: true, totalDue: $totalDue, username: $username){
     loans{
+      id
       loanNo
       loanAmt
       totalDue

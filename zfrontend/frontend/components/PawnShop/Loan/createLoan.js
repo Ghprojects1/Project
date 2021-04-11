@@ -3,10 +3,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, TextField } from "@material-ui/core";
 import { Add, Clear } from "@material-ui/icons";
 import {Mutation} from 'react-apollo'
-import {gql} from 'apollo-boost'
-import Error from '../shared/error'
-import Loading from '../shared/loading'
-import {GET_LoanList} from './index'
+import gql from 'graphql-tag'
+import Error from '../../shared/error'
+import Loading from '../../shared/loading'
+import {GET_LoanList} from '../index'
 // import Dialog from "@material-ui/core/Dialog";
 // import DialogActions from "@material-ui/core/DialogActions";
 // import DialogContent from "@material-ui/core/DialogContent";
@@ -71,9 +71,9 @@ const CreateLoan = ({ classes }) => {
             <form onSubmit={event=>handleSubmit(event, createLoan)}>
               <DialogTitle>Add Loan</DialogTitle>
               <DialogContent>
-                <DialogContentText>
+                {/* <DialogContentText>
                   Add  a new loan
-                </DialogContentText>
+                </DialogContentText> */}
                 <FormControl fullWidth>
                   <TextField 
                     label="loanNo"
@@ -184,6 +184,7 @@ const CREATE_LOAN_MUTATION=gql`
 mutation($grossWt: Float, $itemList: String, $loanAmt: Float, $loanNo: String!, $miscCharges: Float, $netWt: Float, $totalDue: Float, $username: String!){
   createLoans(grossWt: $grossWt, itemList: $itemList, loanAmt: $loanAmt, loanNo: $loanNo, miscCharges: $miscCharges, mode:"C" , netWt: $netWt, status: true, totalDue: $totalDue, username: $username){
     loans{
+      id
       loanNo
       loanAmt
       totalDue

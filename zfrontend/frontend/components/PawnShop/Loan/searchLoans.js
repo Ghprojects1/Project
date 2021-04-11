@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import Search from "@material-ui/icons/Search";
 import {ApolloConsumer} from 'react-apollo'
-import {gql} from 'apollo-boost'
+import gql from 'graphql-tag'
 import InputBase from '@material-ui/core/InputBase';
 
 const SearchLoans = ({ classes, setSearchResults }) => {

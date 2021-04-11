@@ -4,7 +4,7 @@ import FormControl from "@material-ui/core/FormControl";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Gavel from "@material-ui/icons/Gavel";
 import {Mutation} from 'react-apollo'
-import {gql} from 'apollo-boost'
+import gql from 'graphql-tag'
 import { VerifiedUserTwoTone } from '@material-ui/icons';
 import Error from "../shared/error"
 
