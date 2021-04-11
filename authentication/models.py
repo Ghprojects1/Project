@@ -13,6 +13,8 @@ from djongo.storage import GridFSStorage
 grid_fs_storage = GridFSStorage(collection='my_files', base_url=''.join([settings.BASE_URL, 'my_files/']))
 """
 # Create your models here.
+
+
 class User(AbstractUser):
     address1 = models.TextField(max_length=100, blank=True)
     address2 = models.TextField(max_length=100, blank=True)
@@ -24,12 +26,13 @@ class User(AbstractUser):
     occupation = models.CharField(max_length=50, blank=True)
     remarks = models.CharField(max_length=50, blank=True)
     reference = models.CharField(max_length=50, blank=True)
-    avatar = models.ImageField(null=True, upload_to='Customer_Photo')
+    avatar = models.ImageField(
+        null=True, upload_to='Customer_Photo', blank=True)
     #Avatar = models.ImageField(upload_to='authors', storage=grid_fs_storage)
 
-#class Profile(models.Model):
-    
-    
+# class Profile(models.Model):
+
+
 """
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

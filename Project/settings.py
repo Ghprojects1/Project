@@ -33,18 +33,18 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
 # Application definition
 
 INSTALLED_APPS = [
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'graphene_django',
     'rest_framework',
     'corsheaders',
-   # 'crispy_forms',
+    # 'crispy_forms',
     'authentication',
     'account',
     'accountBook',
@@ -66,7 +66,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',   
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'Project.urls'
@@ -89,7 +89,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Project.wsgi.application'
 
-REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES':['rest_framework.permissions.AllowAny']}
+REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny']}
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -112,7 +113,8 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'Project',
         'CLIENT': {
-            'host': 'mongodb+srv://infodba:admin@cluster0.ddyky.mongodb.net/ProjectDB?retryWrites=true&w=majority'
+            'host': 'mongodb+srv://infodba:ProTech28@cluster0.ddyky.mongodb.net/ProjectDB?retryWrites=true&w=majority'
+                    #  mongodb+srv://infodba:admin@cluster0.ddyky.mongodb.net/test
         }
     }
 }
